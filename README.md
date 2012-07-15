@@ -10,16 +10,17 @@ build and install
 build steps:
 	
 	chmod +x build.py
-	python build.py
+	./build.py
 	
 install steps:
 	
 	cd python
-	python setup.py build
-	sudo python setup.py install
+	chmod +x setup.py
+	./setup.py build
+	sudo ./setup.py install
 	
 clean steps:
 	
 	chmod +x clean.py
-	python clean.py
+	./clean.py
 	
