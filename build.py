@@ -27,6 +27,12 @@ if osname=='nt':
 	run('cmake .. -G "MinGW Makefiles"')
 else:
 	run('cmake ..')
-	
+
 # start make
 run('make')
+
+# for the first time, generate dict
+cd('../bin')
+if isfile('unit_test') and not isfile('data/core.ocd'):
+	run('./unit_test')
+
