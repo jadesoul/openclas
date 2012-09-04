@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 from distutils import sysconfig
 from distutils.core import setup
-from os import listdir, getcwd
-from os.path import isfile
+from os import listdir, getcwd, mkdir
+from os.path import isfile, exists
 
 # generate pth file
-f=open('openclas.pth', 'w')
+if not exists('build'): mkdir('build')
+f=open('build/openclas.pth', 'w')
 f.write(getcwd())
 f.close()
 
@@ -21,5 +22,5 @@ setup(
 	license='Python Software Foundation License',
 	packages=[],
 	scripts=[],
-	data_files=[(site_packages_path, ["openclas.pth"])]
+	data_files=[(site_packages_path, ["build/openclas.pth"])]
 )

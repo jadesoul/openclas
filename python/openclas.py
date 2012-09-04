@@ -4,7 +4,7 @@ import os, sys
 from os import listdir, getcwd as cwd, chdir as cd
 from os.path import split as splitdir, splitext, join, dirname, isfile, islink, isdir, exists
 
-bin_dir=join(dirname(__file__), '../bin')
+bin_dir=join(dirname(__file__), '..', 'bin')
 sys.path.append(bin_dir)
 
 import libpyopenclas as _openclas
@@ -15,7 +15,12 @@ def init():
 	'''初始化'''
 	global __is_inited
 	if not __is_inited:
-		assert _openclas.init(bin_dir)
+		try:
+			assert _openclas.init(bin_dir)
+		except Exception, e:
+			print 'can not init the _openclas, exception=%s' % e
+			print 'bin_dir=%s' % bin_dir
+			sys.exit()
 		__is_inited=True
 	
 def deal_str(s, tag=True):
@@ -49,11 +54,33 @@ def tag_file(src, dst):
 	return deal_file(src, dst, True)
 
 if __name__=='__main__':
-	print seg_str('asadaksd sadfkasd f ')
-	print tag_str('asadaksd sadfkasd f ')
-	print seg_str(u'a中国海军在菲北部海域军演 菲方回应 华人在菲驻美使馆示威')
-	print tag_str(u'a中国海军在菲北部海域军演 菲方回应 华人在菲驻美使馆示威')
+	txt='''English Words
+他说的确实在理。
+19９5年底ｇoｏgｌｅ在1月份大会上说的确实在理。
+这个门的把手坏了好几天了。
+你把手抬高一点儿。
+这个动作的要领其实很简单。
+下午我要领工资，恐怕赶不回去。
+办独生子女证，一对夫妻一次性交一百元钱。
+我知道你不知道我知道你不知道我知道你不知道。
+已经分房和尚未分房的同志。
+馆内陈列着周恩来和邓颖超生前使用过的物品。
+我爱北京天安门和西藏的布达拉宫。
+美国白宫和悉尼歌剧院是我喜欢的。
+提高人民生活水平。
+你去咬死猎人的狗。
+你去逮住咬死猎人的狗。
+张华平喜欢看书。
+舒展喜欢看书。
+吴胜兰喜欢听歌。
+我喜欢刘亦菲的歌声。
+'''
+	for s in txt.strip().split('\n'):
+		print s
+		print seg_str(s)
+		print tag_str(s)
+		print
 	
-	print seg_file('1500.txt', '1500.seg.txt')
-	print tag_file('1500.txt', '1500.segtag.txt')
+	print seg_file('1500.txt', '1500.seg')
+	print tag_file('1500.txt', '1500.tag')
 	

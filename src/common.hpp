@@ -36,7 +36,7 @@ using namespace openclas::ict;
 
 Dictionary dict;
 
-static const char* core_name = "data/core.ocd";
+const char* core_name = "data/core.ocd";
 
 string wstringtostring(const wstring& input, const char* using_locale="zh_CN.UTF-8") {
 	string current_locale=setlocale(LC_ALL, NULL);
@@ -82,14 +82,15 @@ bool file_exists(const char* filename) {
 
 // dict initialization
 bool openclas_init(const char* data_dir) {
-	const char* fp_core_dict=(string(data_dir)+"/"+core_name).c_str();
+	string fp_core_dict=string(data_dir)+"/"+string(core_name);
+
+	//cout<<"fp_core_dict="<<fp_core_dict<<endl;
+	if (!file_exists(fp_core_dict.c_str())) return false;
 	
-	if (!file_exists(fp_core_dict)) return false;
-	
-	load_from_ocd_file(dict, fp_core_dict);
+	load_from_ocd_file(dict, fp_core_dict.c_str());
 	
 	debug( cout<<"dict size: "<<dict.words().size()<<endl; )
-	
+
 	size_t word_tag_count = 0;
 	for (Dictionary::word_dict_type::const_iterator iter = dict.words().begin(); iter != dict.words().end(); ++iter) {
 		word_tag_count += (*iter)->tags.size();

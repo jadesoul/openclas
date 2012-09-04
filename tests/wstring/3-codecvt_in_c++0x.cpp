@@ -43,8 +43,7 @@ template
 <typename In, typename Out, typename InS, typename OutS, size_t Max_In_Size >
 OutS CodeConvert(
     const InS& ins
-)
-{
+) {
 	std::locale sys_loc("");
 	const In* src_insrc = ins.c_str();
 	const size_t BUFFER_SIZE = ins.size() * Max_In_Size;

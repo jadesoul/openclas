@@ -387,8 +387,7 @@ namespace openclas {
 	*	see also: openclas::widen();
 	* @returns the converted narrow multibyte string.
 	*/
-	static std::string narrow(const std::wstring& str, const std::locale& loc)
-	{
+	static std::string narrow(const std::wstring& str, const std::locale& loc) {
 		const codecvt_t& cc = std::use_facet<codecvt_t>(loc);
 
 		int buf_size = static_cast<int>(cc.max_length() * (str.length() + 1));
@@ -420,8 +419,7 @@ namespace openclas {
 	*	see also: openclas::widen();
 	* @returns the converted wide string.
 	*/
-	static std::wstring widen(const std::string& str, const std::locale& loc)
-	{
+	static std::wstring widen(const std::string& str, const std::locale& loc) {
 		const codecvt_t& cc = std::use_facet<codecvt_t>(loc);
 
 		size_t buf_size = str.length() + 1;
